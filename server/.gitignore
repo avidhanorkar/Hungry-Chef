@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+
+# Build Artifacts
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Testing and Coverage
+coverage/
+.nyc_output/
+
+# Miscellaneous
+.cache/
+*.tmp
+*.bak
+*.swp
+
+# Package Manager Files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
