@@ -1,9 +1,11 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
+
 const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     const user = await User.findOne({ email: email });
 
@@ -15,13 +17,18 @@ const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser  = new User({
+      name,
+      email,
+      password: hashedPassword,
+      ...(role && { role }), 
+    });
 
-    await newUser.save();
+    await newUser .save();
 
     return res.status(200).json({
-      message: "User registered successfully",
-      user: newUser,
+      message: "User  registered successfully",
+      user: newUser ,
     });
   } catch (error) {
     console.log("Error in register: ", error);
