@@ -1,4 +1,4 @@
-import mongoose, { mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
   user: {

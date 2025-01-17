@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  prevOrder: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Order"
+  }],
   image: {
     type: String,
   },
