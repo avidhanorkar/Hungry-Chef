@@ -18,5 +18,7 @@ router.delete("/menu/deleteOne", menuController.deleteItem);
 
 // Order Routes
 router.post("/order/createOrder", orderController.createOrder);
+router.get("/order/getOrderById", orderController.getOrderById)
+router.get("/order/getOrderByUser", orderController.getOrderByUser)
 
 export default router;
