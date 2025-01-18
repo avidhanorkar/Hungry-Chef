@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  reservations: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Reservation"
+  }]
 });
 
 const User = mongoose.model("User", userSchema);

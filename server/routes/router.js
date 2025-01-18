@@ -2,6 +2,7 @@ import express from 'express';
 import authController from '../controllers/auth.controller.js';
 import menuController from '../controllers/menu.controller.js';
 import orderController from '../controllers/order.controller.js';
+import reservationController from '../controllers/reservation.controller.js';
 const router = express.Router();
 
 // User Routes
@@ -20,5 +21,12 @@ router.delete("/menu/deleteOne", menuController.deleteItem);
 router.post("/order/createOrder", orderController.createOrder);
 router.get("/order/getOrderById", orderController.getOrderById)
 router.get("/order/getOrderByUser", orderController.getOrderByUser)
+
+
+// Reservation Routes
+router.post("/reservation/makeReservation", reservationController.makeReservation);
+router.get("/reservation/getReservationById", reservationController.getReservationById);
+router.get("/reservation/getReservationForUser", reservationController.getReservationForUser);
+router.patch("/reservation/updateReservation", reservationController.updateReservation);
 
 export default router;

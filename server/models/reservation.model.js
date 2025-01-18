@@ -1,26 +1,33 @@
 import mongoose from "mongoose";
 
-const menuSchema = new mongoose.Schema({
-  menuItem: {
-    type: String,
+const reservationSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
-  desc: {
-    type: String,
-    required: true,
-  },
-  price: {
+  tableNo: {
     type: Number,
     required: true,
   },
-  category: {
-    type: String,
+  date: {
+    type: String, // Format: YYYY-MM-DD
+    required: true,
   },
-  image: {
+  startTime: {
     type: String,
+    required: true,
   },
+  endTime: {
+    type: String,
+    required: true,
+  },
+  guestCount: {
+    type: String,
+    required: true,
+  }
 });
 
-const Menu = mongoose.model("menu", menuSchema);
+const Reservation = mongoose.model("Reservation", reservationSchema);
 
-export default Menu;
+export default Reservation;
