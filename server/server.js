@@ -2,8 +2,18 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
 import router from "./routes/router.js";
+import cors from "cors";
+
 const app = express();
 dotenv.config();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", 
+    methods: "GET,POST,PUT,DELETE, Patch", 
+    credentials: true, 
+  })
+);
 
 app.use(express.json());
 app.use("/api", router);
