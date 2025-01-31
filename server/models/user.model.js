@@ -29,8 +29,9 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Order"
   }],
-  image: {
+  profilePic: {
     type: String,
+    default: "https://res.cloudinary.com/drn8ou2tw/image/upload/v1738353466/Hungry%20Chef/dummy-profile.jpg"
   },
   reservations: [{
     type: mongoose.Schema.Types.ObjectId,

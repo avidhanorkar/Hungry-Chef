@@ -2,7 +2,6 @@ import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-
 const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -17,18 +16,19 @@ const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser  = new User({
+    const newUser = new User({
       name,
       email,
       password: hashedPassword,
-      ...(role && { role }), 
+      profilePic:"https://res.cloudinary.com/drn8ou2tw/image/upload/v1738353466/Hungry%20Chef/dummy-profile.jpg",
+      ...(role && { role }),
     });
 
-    await newUser .save();
+    await newUser.save();
 
     return res.status(200).json({
       message: "User  registered successfully",
-      user: newUser ,
+      user: newUser,
     });
   } catch (error) {
     console.log("Error in register: ", error);
@@ -61,6 +61,7 @@ const login = async (req, res) => {
       user: user._id,
       name: user.name,
       role: user.role,
+      profilePic: user.profilePic,
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -73,17 +74,20 @@ const login = async (req, res) => {
       secure: true,
     };
 
-    return res.status(200).cookie("token", token, cookieOptions).json({
-      message: "User Logged In successful",
-      token: token,
-      user: {
-        _id: user._id,
-        userName: user.userName,
-        userEmail: user.userEmail,
-        role: user.role,
-      }
-    });
-
+    return res
+      .status(200)
+      .cookie("token", token, cookieOptions)
+      .json({
+        message: "User Logged In successful",
+        token: token,
+        user: {
+            _id: user._id,
+            name: user.name, 
+            email: user.email,
+            role: user.role,
+            profilePic: user.profilePic 
+        },
+      });
   } catch (error) {
     console.log("Error in login: ", error);
     return res.status(500).json({
@@ -94,33 +98,33 @@ const login = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-    try {
-        const {id} = req.body;
-        const user = await User.findById(id);
+  try {
+    const { id } = req.body;
+    const user = await User.findById(id);
 
-        if (!user) {
-            return res.status(400).json({
-                message: "User not found || Need to register first",
-            })
-        }
-
-        return res.status(200).json({
-            message: "User found",
-            user: user
-        })
-    } catch (error) {
-        console.log("Error in getting user by id: ", error);
-        return res.status(500).json({
-            message: "Something went wrong",
-            error: error.message
-        })
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found || Need to register first",
+      });
     }
-}
+
+    return res.status(200).json({
+      message: "User found",
+      user: user,
+    });
+  } catch (error) {
+    console.log("Error in getting user by id: ", error);
+    return res.status(500).json({
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
 
 const authController = {
   register,
   login,
-  getUserById
+  getUserById,
 };
 
 export default authController;

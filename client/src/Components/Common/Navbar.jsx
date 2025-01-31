@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Utensils } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { AuthContext } from "@/context/auth.context";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user)
   return (
     <div className="h-[10vh] bg-[#131620] px-20">
       <div className="h-full w-full flex justify-between items-center px-4">
@@ -29,11 +32,19 @@ const Navbar = () => {
             <Link to={"/home"}>
               <li className="cursor-pointer">Contact</li>
             </Link>
-            <Link to={"/auth"}>
-              <Button className="rounded-sm text-white font-semibold hover:bg-white hover:text-black hover:drop-shadow-md bg-[#DE8f25]">
-                Log In
-              </Button>
-            </Link>
+            {!user ? (
+              <Link to={"/auth"}>
+                <Button className="rounded-sm text-white font-semibold hover:bg-white hover:text-black hover:drop-shadow-md bg-[#DE8f25]">
+                  Log In
+                </Button>
+              </Link>
+            ) : (
+              <Link to={`/profile/${user.user}`}>
+                <div className="rounded-full h-10 w-10 bg-black">
+                <img className="rounded-full" src={`${user.profilePic}`} alt="" />
+                </div>
+              </Link>
+            )}
           </ul>
         </nav>
       </div>

@@ -28,11 +28,14 @@ const LoginPage = () => {
         }
       );
 
+
       if (response.status === 200) {
-        console.log(response.data);
+        console.log("Response data: ", response.data);
         sessionStorage.setItem("token", JSON.stringify(response.data.token));
+        sessionStorage.setItem("profilePic", JSON.stringify(response.data.user.profilePic));
         setUser({ email: "", password: "" });
         navigate('/')
+        window.location.reload();
       }
     } catch (error) {
       console.error("Login failed:", error);
