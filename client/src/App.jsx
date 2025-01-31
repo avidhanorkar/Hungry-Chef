@@ -7,6 +7,7 @@ import LoginPage from "./Pages/Auth/LoginPage";
 import Register from "./Pages/Auth/Register";
 import AuthPage from "./Pages/Auth/AuthPage";
 import TableReservation from "./Pages/Table Reservation";
+import Profile from "./Pages/Profile";
 const App = () => {
   return (
     <div>
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reserveTable" element={<TableReservation />} />
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
         <Footer />
       </BrowserRouter>

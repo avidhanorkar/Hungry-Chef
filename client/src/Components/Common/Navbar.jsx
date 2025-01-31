@@ -6,7 +6,6 @@ import { AuthContext } from "@/context/auth.context";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
-  console.log(user)
   return (
     <div className="h-[10vh] bg-[#131620] px-20">
       <div className="h-full w-full flex justify-between items-center px-4">
