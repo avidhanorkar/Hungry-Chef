@@ -2,7 +2,7 @@ import { Utensils } from "lucide-react";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
@@ -13,6 +13,8 @@ const Register = () => {
     confirmPassword: "",
     role: "user",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -44,6 +46,7 @@ const Register = () => {
             confirmPassword: "",
             role: "user",
         })
+        window.location.reload();
       }
     } catch (error) {
       console.error("Registration failed:", error);
@@ -52,7 +55,7 @@ const Register = () => {
   };
 
   return (
-    <div className="h-[100vh] bg-[#131620] flex justify-center items-center">
+    <div className="bg-[#131620] flex justify-center items-center">
       <div className="form h-auto w-[30vw] bg-[#171B26] drop-shadow-2xl rounded-xl p-6">
         <div className="flex justify-center flex-col text-center items-center gap-4">
           <div className="h-16 w-16 bg-[#FFEDD5] flex justify-center items-center rounded-full">

@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -28,8 +30,9 @@ const LoginPage = () => {
 
       if (response.status === 200) {
         console.log(response.data);
-        alert("User logged in successfully");
+        sessionStorage.setItem("token", JSON.stringify(response.data.token));
         setUser({ email: "", password: "" });
+        navigate('/')
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -38,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="h-[90vh] bg-[#131620] flex justify-center items-center">
+    <div className="bg-[#131620] flex justify-center items-center">
       <div className="form h-[70vh] w-[30vw] bg-[#171B26] drop-shadow-2xl rounded-xl">
         <div className="flex justify-center mt-5 flex-col text-center items-center gap-5">
           <div className="h-16 w-16 bg-[#FFEDD5] flex justify-center items-center rounded-full">

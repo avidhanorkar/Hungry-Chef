@@ -62,6 +62,7 @@ const login = async (req, res) => {
       name: user.name,
       role: user.role,
     };
+
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "2d",
     });
@@ -75,7 +76,14 @@ const login = async (req, res) => {
     return res.status(200).cookie("token", token, cookieOptions).json({
       message: "User Logged In successful",
       token: token,
+      user: {
+        _id: user._id,
+        userName: user.userName,
+        userEmail: user.userEmail,
+        role: user.role,
+      }
     });
+
   } catch (error) {
     console.log("Error in login: ", error);
     return res.status(500).json({
