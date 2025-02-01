@@ -57,9 +57,9 @@ const makeReservation = async (req, res) => {
 
 const getReservationById = async (req, res) => {
   try {
-    const { reservationId } = req.body;
+    const { id } = req.params;
 
-    const reservation = await Reservation.findById(reservationId).populate(
+    const reservation = await Reservation.findById(id).populate(
       "user"
     );
 

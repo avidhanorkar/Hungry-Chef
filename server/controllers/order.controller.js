@@ -45,9 +45,9 @@ const createOrder = async (req, res) => {
 
 const getOrderById = async (req, res) => {
   try {
-    const { orderId } = req.body;
+    const { id } = req.params;
 
-    const order = await Order.findById(orderId)
+    const order = await Order.findById(id)
       .populate("menuItem")
       .populate("user");
 

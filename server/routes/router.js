@@ -8,7 +8,7 @@ const router = express.Router();
 // User Routes
 router.post("/auth/register", authController.register);
 router.post("/auth/login", authController.login);
-router.get("/auth/getUser", authController.getUserById);
+router.get("/auth/getUser/:id", authController.getUserById);
 
 // Menu Routes
 router.post("/menu/addItem", menuController.addMenuItem);
@@ -19,13 +19,13 @@ router.delete("/menu/deleteOne", menuController.deleteItem);
 
 // Order Routes
 router.post("/order/createOrder", orderController.createOrder);
-router.get("/order/getOrderById", orderController.getOrderById)
+router.get("/order/getOrderById/:id", orderController.getOrderById)
 router.get("/order/getOrderByUser", orderController.getOrderByUser)
 
 
 // Reservation Routes
 router.post("/reservation/makeReservation", reservationController.makeReservation);
-router.get("/reservation/getReservationById", reservationController.getReservationById);
+router.get("/reservation/getReservationById/:id", reservationController.getReservationById);
 router.get("/reservation/getReservationForUser", reservationController.getReservationForUser);
 router.patch("/reservation/updateReservation", reservationController.updateReservation);
 
