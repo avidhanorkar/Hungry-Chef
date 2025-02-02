@@ -3,12 +3,14 @@ import authController from '../controllers/auth.controller.js';
 import menuController from '../controllers/menu.controller.js';
 import orderController from '../controllers/order.controller.js';
 import reservationController from '../controllers/reservation.controller.js';
+import upload from '../middlewares/multer.middleware.js';
 const router = express.Router();
 
 // User Routes
 router.post("/auth/register", authController.register);
 router.post("/auth/login", authController.login);
 router.get("/auth/getUser/:id", authController.getUserById);
+router.put("/auth/updateProfile/:id", upload.single("profilePic"), authController.updateProfile);
 
 // Menu Routes
 router.post("/menu/addItem", menuController.addMenuItem);

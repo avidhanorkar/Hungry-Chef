@@ -1,10 +1,9 @@
 import { AuthContext } from "../../context/auth.context";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Order from "../../Components/Profile/order.jsx";
 import { Button } from "@/Components/ui/button";
 import Reservation from "@/Components/Profile/reservation";
-
+import { Link } from "react-router-dom";
 const Profile = () => {
   const { user, logout } = useContext(AuthContext);
   const [userDet, setUserDet] = useState(null);
@@ -53,12 +52,19 @@ const Profile = () => {
             alt="Profile"
           />
         </div>
-        <Button
-          onClick={logout}
-          className="text-sm tracking-wider uppercase px-12 py-6 text-red-600 border-red-600 border-2 bg-transparent hover:bg-red-600 hover:text-white mt-5"
-        >
-          Log Out
-        </Button>
+        <div className="flex gap-5">
+          <Link to={`/profile/update/${id}`}>
+            <Button className="text-sm tracking-wider uppercase py-6 font-bold text-white border-white border-2 bg-transparent hover:bg-white hover:text-black duration-200 mt-5">
+              Update Profile
+            </Button>
+          </Link>
+          <Button
+            onClick={logout}
+            className="text-sm tracking-wider uppercase px-10 py-6 font-bold text-red-600 border-red-600 border-2 bg-transparent hover:bg-red-600 hover:text-white duration-200 mt-5"
+          >
+            Log Out
+          </Button>
+        </div>
       </div>
       <div className="w-[75%] rounded-xl h-full flex justify-start flex-col pt-10 px-[120px] gap-10">
         <div className="bg-[#171B26] p-[30px] rounded-lg">

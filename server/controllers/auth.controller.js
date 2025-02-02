@@ -20,7 +20,8 @@ const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      profilePic:"https://res.cloudinary.com/drn8ou2tw/image/upload/v1738353466/Hungry%20Chef/dummy-profile.jpg",
+      profilePic:
+        "https://res.cloudinary.com/drn8ou2tw/image/upload/v1738353466/Hungry%20Chef/dummy-profile.jpg",
       ...(role && { role }),
     });
 
@@ -81,11 +82,11 @@ const login = async (req, res) => {
         message: "User Logged In successful",
         token: token,
         user: {
-            _id: user._id,
-            name: user.name, 
-            email: user.email,
-            role: user.role,
-            profilePic: user.profilePic 
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          profilePic: user.profilePic,
         },
       });
   } catch (error) {
@@ -121,10 +122,49 @@ const getUserById = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+    const profilePic = req.file ? req.file.path : null;
+
+    console.log("Updating profile for user ID:", id);
+    console.log("Received name:", name);
+    console.log("Received profilePic path:", profilePic);
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found || Need to register first",
+      });
+    }
+
+    user.name = name || user.name;
+    if (profilePic) {
+      user.profilePic = profilePic || user.profilePic;
+    }
+
+    await user.save();
+    return res.status(200).json({
+      message: "The profile is updated",
+      profile: user,
+    });
+  } catch (error) {
+    console.error("Error in updating profile: ", error);
+    return res.status(500).json({
+      message: "Error in updating the profile",
+      error: error.message,
+    });
+  }
+};
+
+
+
 const authController = {
   register,
   login,
   getUserById,
+  updateProfile,
 };
 
 export default authController;
