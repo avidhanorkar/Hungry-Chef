@@ -123,40 +123,50 @@ const getUserById = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
+  console.log('Request params:', req.params);
+  console.log('Request body:', req.body);
+  console.log('Uploaded file:', req.file);
+  
   try {
     const { id } = req.params;
     const { name } = req.body;
-    const profilePic = req.file ? req.file.path : null;
-
-    console.log("Updating profile for user ID:", id);
-    console.log("Received name:", name);
-    console.log("Received profilePic path:", profilePic);
-
+    
+    // Find user first
     const user = await User.findById(id);
     if (!user) {
-      return res.status(400).json({
-        message: "User not found || Need to register first",
+      return res.status(404).json({
+        message: "User not found.",
       });
     }
 
-    user.name = name || user.name;
-    if (profilePic) {
-      user.profilePic = profilePic || user.profilePic;
+    // Update name if provided
+    if (name) {
+      user.name = name;
     }
 
+    // Update profile pic only if a new file was uploaded
+    if (req.file) {
+      user.profilePic = req.file.path;
+    }
+
+    // Save the updates
     await user.save();
+
     return res.status(200).json({
-      message: "The profile is updated",
+      message: "Profile updated successfully.",
       profile: user,
     });
   } catch (error) {
-    console.error("Error in updating profile: ", error);
+    console.log('Error in updating profile:', error);
     return res.status(500).json({
       message: "Error in updating the profile",
       error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 };
+
+
 
 
 

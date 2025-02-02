@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/auth/register", authController.register);
 router.post("/auth/login", authController.login);
 router.get("/auth/getUser/:id", authController.getUserById);
-router.put("/auth/updateProfile/:id", upload.single("profilePic"), authController.updateProfile);
+router.patch("/auth/updateProfile/:id", upload.single("profilePic"), authController.updateProfile);
 
 // Menu Routes
 router.post("/menu/addItem", menuController.addMenuItem);

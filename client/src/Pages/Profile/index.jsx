@@ -43,12 +43,12 @@ const Profile = () => {
   }
 
   return (
-    <div className="h-[80vh] bg-[#131620] flex items-center gap- justify-center ">
+    <div className="h-[80vh] bg-[#131620] flex items-center justify-center gap-10 px-20">
       <div className="h-full flex justify-center flex-col items-center w-[25%] ">
-        <div className="w-[300px] h-[300px] bg-black rounded-full">
+        <div className="w-[300px] h-[300px] bg-black rounded-full ">
           <img
-            src={user.profilePic}
-            className="w-[300px] h-[300px] rounded-full"
+            src={userDet?.profilePic}
+            className="w-[300px] h-[300px] rounded-full object-cover"
             alt="Profile"
           />
         </div>
@@ -66,7 +66,7 @@ const Profile = () => {
           </Button>
         </div>
       </div>
-      <div className="w-[75%] rounded-xl h-full flex justify-start flex-col pt-10 px-[120px] gap-10">
+      <div className="w-[75%] h-full rounded-xl flex justify-center flex-col gap-10">
         <div className="bg-[#171B26] p-[30px] rounded-lg">
           <p className="text-2xl tracking-wide text-white font-semibold">
             User Details

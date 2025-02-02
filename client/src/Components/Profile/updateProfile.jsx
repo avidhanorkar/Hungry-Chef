@@ -33,44 +33,44 @@ const UpdateProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
-    formData.append("name", name); 
-    
+    formData.append("name", name);
+
     if (profilePic) {
       formData.append("profilePic", profilePic);
     }
-  
+
     try {
       const response = await fetch(
         `http://localhost:8000/api/auth/updateProfile/${user.user}`,
         {
-          method: "PUT",
-          body: formData, 
+          method: "PATCH",
+          body: formData,
         }
       );
-      console.log(response)
+      console.log(response);
       if (response.ok) {
-        const data = await response.json(); 
+        const data = await response.json(); // Parse the response body as JSON
         console.log("Profile updated successfully", data);
-        setUser(data.profile); 
+        setName(data.profile.name);
+        setProfilePic(data.profile.profilePic);
         navigate(`/profile/${user.user}`);
       } else {
-        const errorData = await response.json(); 
-        console.error("Error updating profile:", errorData.message);
+        const errorText = await response.text(); // Log the entire response text
+        console.error("Error updating profile:", errorText);
       }
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
-  
 
   return (
     <div className="h-[80vh] bg-[#131620] px-32 py-10">
       <p className="text-3xl text-white font-bold font-serif tracking-wider">
         Update Profile
       </p>
-      <form onSubmit={handleSubmit} encType="multipart/form-data"> 
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="flex flex-col gap-5 px-20 py-10 bg-[#171B26] mt-10">
           <div className="flex justify-between items-end text-[20px] font-semibold">
             <p className="text-white">Name:</p>
@@ -78,7 +78,7 @@ const UpdateProfile = () => {
               type="text"
               className="bg-[#131620] text-white text-right h-10 text-[25px] rounded-md font-semibold"
               value={name}
-              onChange={handleNameChange} 
+              onChange={handleNameChange}
             />
           </div>
           <div className="flex justify-between items-end text-[20px] font-semibold">
@@ -90,9 +90,16 @@ const UpdateProfile = () => {
             />
           </div>
           {previewURL && (
-            <img src={previewURL} alt="Profile Preview" className="mt-4 h-24 w-24 rounded-full object-cover" />
+            <img
+              src={previewURL}
+              alt="Profile Preview"
+              className="mt-4 h-24 w-24 rounded-full object-cover"
+            />
           )}
-          <Button type="submit" className="text-sm tracking-wider uppercase py-6 font-bold text-white border-white border-2 bg-transparent hover:bg-white hover:text-black duration-200 mt-5">
+          <Button
+            type="submit"
+            className="text-sm tracking-wider uppercase py-6 font-bold text-white border-white border-2 bg-transparent hover:bg-white hover:text-black duration-200 mt-5"
+          >
             Update Profile
           </Button>
         </div>
