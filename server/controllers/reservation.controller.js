@@ -3,7 +3,7 @@ import Reservation from "../models/reservation.model.js";
 
 const makeReservation = async (req, res) => {
   try {
-    const { userId, tableNo, date, start, end, guestCount } = req.body;
+    const { userId, date, start, end, guestCount } = req.body;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -12,7 +12,8 @@ const makeReservation = async (req, res) => {
       });
     }
 
-    // Checking if the table is already booked for the same timeslot
+    const tableNo = Math.floor(Math.random() * 20) + 1;
+
     const existingReservation = await Reservation.findOne({
       tableNo: tableNo,
       date: date,
