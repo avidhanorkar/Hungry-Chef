@@ -14,7 +14,8 @@ const menuSchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category"
   },
   image: {
     type: String,

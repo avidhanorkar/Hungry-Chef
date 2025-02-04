@@ -18,6 +18,7 @@ router.get("/menu/getAllItems", menuController.getAllItems);
 router.get("/menu/getItemById", menuController.getItemById);
 router.patch("/menu/updateItem", menuController.updateItem);
 router.delete("/menu/deleteOne", menuController.deleteItem);
+router.get("/menu/getMenuFromCategory/:id", menuController.getItemsByCategory);
 
 // Order Routes
 router.post("/order/createOrder", orderController.createOrder);
