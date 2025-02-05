@@ -4,6 +4,7 @@ import menuController from '../controllers/menu.controller.js';
 import orderController from '../controllers/order.controller.js';
 import reservationController from '../controllers/reservation.controller.js';
 import upload from '../middlewares/multer.middleware.js';
+import categoryController from '../controllers/category.controller.js';
 const router = express.Router();
 
 // User Routes
@@ -31,5 +32,8 @@ router.post("/reservation/makeReservation", reservationController.makeReservatio
 router.get("/reservation/getReservationById/:id", reservationController.getReservationById);
 router.get("/reservation/getReservationForUser", reservationController.getReservationForUser);
 router.patch("/reservation/updateReservation", reservationController.updateReservation);
+
+// Category Routes
+router.get("/categories/getAll", categoryController.getCategories)
 
 export default router;

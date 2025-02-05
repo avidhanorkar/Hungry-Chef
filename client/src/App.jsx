@@ -8,6 +8,7 @@ import TableReservation from "./Pages/Table Reservation";
 import Profile from "./Pages/Profile";
 import { AuthProvider } from './context/auth.context'; // Import AuthProvider
 import UpdateProfile from "./Components/Profile/updateProfile";
+import Menu from "./Pages/Menu";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/profile/update/:id" element={<UpdateProfile/>}/>
             <Route path="/reserveTable" element={<TableReservation />} />
+            <Route path="/browseMenu" element={<Menu />} />
           </Routes>
           <Footer />
         </AuthProvider>

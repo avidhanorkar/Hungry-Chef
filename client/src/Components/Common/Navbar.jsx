@@ -27,7 +27,6 @@ const Navbar = () => {
 
       const data = await response.json();
       setUserDet(data.user);
-      console.log(data.user);
     } catch (error) {
       console.error("Error:", error.message);
     }

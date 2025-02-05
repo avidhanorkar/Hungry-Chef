@@ -166,17 +166,17 @@ const deleteItem = async (req, res) => {
 // Get Menu Items by Category
 const getItemsByCategory = async (req, res) => {
   try {
-    const { categoryId } = req.params;
+    const { id } = req.params;
 
     // Check if category exists
-    const categoryExists = await Category.findById(categoryId);
+    const categoryExists = await Category.findById(id);
     if (!categoryExists) {
       return res.status(400).json({
         message: "Invalid category ID",
       });
     }
 
-    const items = await Menu.find({ category: categoryId }).populate("category", "name image");
+    const items = await Menu.find({ category: id }).populate("category", "name image");
 
     return res.status(200).json({
       message: "Items retrieved successfully",
