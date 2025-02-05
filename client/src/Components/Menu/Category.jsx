@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Category = ({ onCategorySelect }) => {
+const Category = ({ onCategorySelect, categoryName }) => {
   const [category, setCategory] = useState([]); // Initialize as empty array
 
   const getCategories = async () => {
@@ -28,7 +28,7 @@ const Category = ({ onCategorySelect }) => {
         <div
           key={index}
           className="w-[150px] flex flex-col gap-5 text-center justify-center items-center bg-[#171B26] p-5 rounded-md cursor-pointer"
-          onClick={() => {onCategorySelect(cat._id)}}
+          onClick={() => {onCategorySelect(cat._id); categoryName(cat.name)}}
         >
           <img className="h-[75px] w-[75px]" src={cat.image} alt={cat.name} />
           <p className="text-white font-serif text-xl">{cat.name}</p>
