@@ -21,8 +21,8 @@ const Order = ({ userDet }) => {
   };
 
   useEffect(() => {
-    if (userDet?.prevOrder?.[0]) {
-      getOrder(userDet?.prevOrder?.[0]);
+    if (userDet?.prevOrder?.[userDet.prevOrder.length - 1]) {
+      getOrder(userDet?.prevOrder?.[userDet.prevOrder.length -1]);
     }
   }, [userDet]);
 
@@ -54,7 +54,7 @@ const Order = ({ userDet }) => {
               There is no order history!
             </p>
             <div className="w-full flex justify-center">
-              <Link>
+              <Link to={'/browseMenu'}>
                 <Button className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] ">
                   Order Food
                 </Button>

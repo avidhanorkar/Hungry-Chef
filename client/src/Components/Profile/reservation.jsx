@@ -21,7 +21,7 @@ const Reservation = ({ userDet }) => {
   };
   useEffect(() => {
     if (userDet?.reservations?.[0]) {
-      getReservation(userDet.reservations[0]);
+      getReservation(userDet.reservations[userDet.reservations.length - 1]);
     }
   }, [userDet]);
 
@@ -52,7 +52,7 @@ const Reservation = ({ userDet }) => {
             Please make a reservation.
           </p>
           <div className="w-full flex justify-center">
-            <Link>
+            <Link to={'/reserveTable'}>
               <Button className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] ">
                 Make Reservation
               </Button>

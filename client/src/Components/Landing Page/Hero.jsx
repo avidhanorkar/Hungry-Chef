@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { AuthContext } from "@/context/auth.context";
 
 const Hero = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="h-[92vh]">
       <div className="flex ">
@@ -18,14 +21,25 @@ const Hero = () => {
               Experience the epitome of fine dining where every dish tells a
               story of passion and artistry
             </p>
-            <Link to={'/reserveTable'}>
-              <Button
-                size="lg"
-                className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] "
-              >
-                Reserve Your Experience
-              </Button>
-            </Link>
+            {user ? (
+              <Link to={"/reserveTable"}>
+                <Button
+                  size="lg"
+                  className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] "
+                >
+                  Reserve Your Experience
+                </Button>
+              </Link>
+            ) : (
+              <Link to={"/auth"}>
+                <Button
+                  size="lg"
+                  className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] "
+                >
+                  Reserve Your Experience
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
         <div className="h-[92vh] w-1/2 flex justify-center items-center">

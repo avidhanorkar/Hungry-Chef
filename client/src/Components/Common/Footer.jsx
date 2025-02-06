@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Utensils } from "lucide-react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "@/context/auth.context";
 
 const Footer = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className="h-[40vh] bg-[#171B26] pt-12">
       <div className="h-[80%] flex flex-row justify-around">
@@ -22,8 +25,18 @@ const Footer = () => {
           </p>
           <div className="flex flex-col gap-2">
             <p className="text-gray-500">About</p>
-            <p className="text-gray-500">Menu</p>
-            <p className="text-gray-500">Reservations</p>
+            <Link to={"/browseMenu"}>
+              <p className="text-gray-500">Menu</p>
+            </Link>
+            {user ? (
+              <Link to={"/reserveTable"}>
+                <p className="text-gray-500">Reservations</p>
+              </Link>
+            ) : (
+              <Link to={"/auth"}>
+                <p className="text-gray-500">Reservations</p>
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-5">
@@ -50,11 +63,11 @@ const Footer = () => {
             </a>
 
             <a href="https://x.com/avidhanorkar23">
-                <img src="/twitter.svg" alt="" />
+              <img src="/twitter.svg" alt="" />
             </a>
 
             <a href="https://github.com/avidhanorkar/Hungry-Chef">
-                <img src="/git.svg" alt="" />
+              <img src="/git.svg" alt="" />
             </a>
           </div>
         </div>

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { AuthContext } from "@/context/auth.context";
 const ReserveTable = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className="h-[80vh] flex justify-center items-center flex-col">
       <p className="text-[#DE8F25] uppercase text-center tracking-widest text-[18px] ">
@@ -17,11 +19,19 @@ const ReserveTable = () => {
         </p>
       </div>
       <div className="flex justify-center items-center h-[20vh]">
-        <Link to={'/reserveTable'}>
-          <Button className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] ">
-            Book Your Table
-          </Button>
-        </Link>
+        {user ? (
+          <Link to={"/reserveTable"}>
+            <Button className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] ">
+              Book Your Table
+            </Button>
+          </Link>
+        ) : (
+          <Link to={"/auth"}>
+            <Button className="text-sm tracking-wider uppercase px-12 py-6 bg-primary hover:bg-[#DE8F25] bg-[#e9a343] ">
+              Book Your Table
+            </Button>
+          </Link>
+        )}
       </div>
 
       <p className="text-white text-[18px] text-center font-semibold">
