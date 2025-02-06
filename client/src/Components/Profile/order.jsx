@@ -41,7 +41,7 @@ const Order = ({ userDet }) => {
             </div>
             <div className="flex justify-between w-full">
               <p className="text-white">Menu Item: </p>
-              <p className="text-white">{order?.menuItem.menuItem}</p>
+              <p className="text-white">{order?.menuItem}</p>
             </div>
             <div className="flex justify-between w-full">
               <p className="text-white">Total Price: </p>

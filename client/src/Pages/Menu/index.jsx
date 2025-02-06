@@ -2,7 +2,7 @@ import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import Category from "@/Components/Menu/Category";
 import { useEffect, useState } from "react";
-import MenuCard from "@/Components/Landing Page/MenuCard";
+import Card from "@/Components/Menu/Card";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -56,7 +56,7 @@ const Menu = () => {
         <div className="flex flex-row flex-wrap gap-5 justify-center">
             {/* ToDo: To create a menu card component with add to card button as same as the MenuCard */}
           {menu.map((item, index) => (
-            <MenuCard
+            <Card
               key={index}
               img={item.image}
               name={item.menuItem}
