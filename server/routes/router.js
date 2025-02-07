@@ -5,6 +5,7 @@ import orderController from '../controllers/order.controller.js';
 import reservationController from '../controllers/reservation.controller.js';
 import upload from '../middlewares/multer.middleware.js';
 import categoryController from '../controllers/category.controller.js';
+import cartController from '../controllers/cart.controller.js';
 const router = express.Router();
 
 // User Routes
@@ -20,6 +21,12 @@ router.get("/menu/getItemById", menuController.getItemById);
 router.patch("/menu/updateItem", menuController.updateItem);
 router.delete("/menu/deleteOne", menuController.deleteItem);
 router.get("/menu/getMenuFromCategory/:id", menuController.getItemsByCategory);
+
+// Cart Routers
+router.post("/cart/addToCart/:id", cartController.addToCart);
+router.get("/cart/getCart", cartController.getCart);
+router.delete("/cart/removeItem/:id", cartController.removeItemFromCart);
+
 
 // Order Routes
 router.post("/order/createOrder", orderController.createOrder);
