@@ -24,7 +24,7 @@ router.get("/menu/getMenuFromCategory/:id", menuController.getItemsByCategory);
 
 // Cart Routers
 router.post("/cart/addToCart/:id", cartController.addToCart);
-router.get("/cart/getCart", cartController.getCart);
+router.get("/cart/getCart/:userId", cartController.getCart);
 router.delete("/cart/removeItem/:id", cartController.removeItemFromCart);
 
 
