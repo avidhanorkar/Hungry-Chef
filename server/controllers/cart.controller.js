@@ -41,15 +41,15 @@ const addToCart = async (req, res) => {
   }
 };
 
-export { addToCart };
-
 const getCart = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.params;
 
-    const cart = await Cart.findOne({ user: userId }).populate(
-      "menuItems.menu"
-    );
+    const cart = await Cart.findOne({ user: userId }).populate({
+      path: "menuItems.menu", 
+      model: "Menu",
+      select: "menuItem desc price image", // Fields to include in the populated data (you can adjust this)
+    });
 
     if (!cart) {
       return res.status(404).json({
@@ -97,9 +97,9 @@ const removeItemFromCart = async (req, res) => {
 };
 
 const cartController = {
-    removeItemFromCart,
-    getCart,
-    addToCart
-}
+  removeItemFromCart,
+  getCart,
+  addToCart,
+};
 
 export default cartController;
