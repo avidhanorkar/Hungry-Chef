@@ -1,8 +1,16 @@
+import { useContext, useState } from "react";
 import { Button } from "../ui/button";
+import { AuthContext } from "@/context/auth.context";
 
-const Card = ({ img, name, desc, price }) => {
+const Card = ({ id, img, name, desc, price, handleClick, btnText }) => {
+
+
+
   return (
-    <div className="h-[400px] w-[300px] bg-[#171B26] rounded-md flex flex-col">
+    <div
+      id={id}
+      className="h-[400px] w-[300px] bg-[#171B26] rounded-md flex flex-col"
+    >
       <img
         src={`${img}`}
         className="h-1/2 w-full object-cover rounded-t-md"
@@ -16,8 +24,11 @@ const Card = ({ img, name, desc, price }) => {
         <div>
           <p className="text-[#DE8F25] text-xl font-serif">$ {price}</p>
         </div>
-        <Button className="bg-[#DE8F25] hover:bg-white hover:text-black font-semibold ">
-          Add To Cart
+        <Button
+          className="bg-[#DE8F25] hover:bg-white hover:text-black font-semibold "
+          onClick={handleClick}
+        >
+          {btnText}
         </Button>
       </div>
     </div>

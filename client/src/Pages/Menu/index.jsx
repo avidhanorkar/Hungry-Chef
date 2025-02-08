@@ -1,13 +1,17 @@
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import Category from "@/Components/Menu/Category";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "@/context/auth.context";
 import Card from "@/Components/Menu/Card";
 
 const Menu = () => {
+  const { user } = useContext(AuthContext);
   const [menu, setMenu] = useState([]);
   const [category, setCategory] = useState(null);
   const [categoryName, setCategoryName] = useState(null);
+  const [buttonText, setButtonText] = useState("Add To Cart");
+  const [isAdded, setIsAdded] = useState(false);
 
   const getMenu = async (categoryId) => {
     const response = await fetch(
@@ -28,6 +32,35 @@ const Menu = () => {
       setMenu(data.items);
     }
   };
+
+  const addToCart = async (id) => {
+    try {
+      if (isAdded[id]) return;
+      const response = await fetch(
+        `http://localhost:8000/api/cart/addToCart/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.user,
+            quantity: 2,
+          }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to add item to cart");
+      }
+
+      console.log("Item added to cart successfully");
+      setButtonText((prev) => ({ ...prev, [id]: "Added" }));
+      setIsAdded((prev) => ({ ...prev, [id]: true }));
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
+  };
+
   useEffect(() => {
     if (category) {
       getMenu(category);
@@ -72,10 +105,13 @@ const Menu = () => {
           {menu.map((item, index) => (
             <Card
               key={index}
+              id={item.id}
               img={item.image}
               name={item.menuItem}
               desc={item.desc}
               price={item.price}
+              handleClick={() => addToCart(item._id)}
+              btnText={buttonText[item._id] || "Add To Cart"}
             />
           ))}
         </div>
