@@ -63,6 +63,15 @@ const Navbar = () => {
             <Link to={"/home"}>
               <li className="cursor-pointer">Contact</li>
             </Link>
+            {user ? (
+              <Link to={"/cart"}>
+                <img
+                  className="w-10 h-10"
+                  src="https://res.cloudinary.com/drn8ou2tw/image/upload/v1739034631/basket_euvtwf.png"
+                  alt=""
+                />
+              </Link>
+            ) : null}
             {!user ? (
               <Link to={"/auth"}>
                 <Button className="rounded-sm text-white font-semibold hover:bg-white hover:text-black hover:drop-shadow-md bg-[#DE8f25]">
