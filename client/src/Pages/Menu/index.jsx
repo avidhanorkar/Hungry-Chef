@@ -16,16 +16,29 @@ const Menu = () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data.items);
       setMenu(data.items);
     }
   };
 
+  const allMenu = async () => {
+    const response = await fetch(`http://localhost:8000/api/menu/getAllItems`);
+
+    if (response.ok) {
+      const data = await response.json();
+      setMenu(data.items);
+    }
+  };
   useEffect(() => {
     if (category) {
       getMenu(category);
     }
   }, [category]);
+
+  useEffect(() => {
+    if (!category) {
+      allMenu();
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#131620] w-full flex flex-col px-20 py-5">
@@ -51,10 +64,11 @@ const Menu = () => {
       {/* Menu Items */}
       <div className="flex flex-col mt-10 gap-5">
         <p className="text-center text-white font-serif text-5xl tracking-wider font-semibold">
-          {categoryName}
+          {categoryName || "All Menu Items"}
         </p>
+
         <div className="flex flex-row flex-wrap gap-5 justify-center">
-            {/* ToDo: To create a menu card component with add to card button as same as the MenuCard */}
+          {/* ToDo: To create a menu card component with add to card button as same as the MenuCard */}
           {menu.map((item, index) => (
             <Card
               key={index}
