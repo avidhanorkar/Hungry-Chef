@@ -19,7 +19,6 @@ const AuthProvider = ({ children }) => {
                 if (decodeUser.profile) {
                     decodeUser.profile = decodeUser.profile; 
                 }
-                
                 setUser(decodeUser);
             } catch (error) {
                 console.error("Error decoding token:", error);
@@ -36,7 +35,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, logout }}>
+        <AuthContext.Provider value={{ user, setUser, logout }}>
             {children}
         </AuthContext.Provider>
     );

@@ -5,9 +5,10 @@ const Cart = () => {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState(null);
 
+  console.log(user);
+
   const getCart = async () => {
     if (!user?.user) return; // Check if user is available before making the API call
-
     try {
       const response = await fetch(
         `http://localhost:8000/api/cart/getCart/${user.user}`,
@@ -88,10 +89,11 @@ const Cart = () => {
             </p>
           </div>
           <hr className="text-white w-full px-5" />
-          <div className="flex flex-col justify-center items-center px-5">
+          <div className="flex flex-col  px-5">
             <p className="text-center text-xl text-white font-serif">Address</p>
             <div>
-              
+              <p className="text-white font-[550] text-left">Your Address</p>
+              {/* <p className="text-gray-500 font-[400] text-left">{user.address}</p> */}
             </div>
           </div>
         </div>

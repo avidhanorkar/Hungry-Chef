@@ -31,8 +31,11 @@ const LoginPage = () => {
 
       if (response.status === 200) {
         console.log("Response data: ", response.data);
+        
         sessionStorage.setItem("token", JSON.stringify(response.data.token));
         sessionStorage.setItem("profilePic", JSON.stringify(response.data.user.profilePic));
+        sessionStorage.setItem("address", JSON.stringify(response.data.user.address));
+
         setUser({ email: "", password: "" });
         navigate('/')
         window.location.reload();

@@ -63,7 +63,7 @@ const login = async (req, res) => {
       name: user.name,
       role: user.role,
       profilePic: user.profilePic,
-      address: ""
+      address: user.address
     };
 
     console.log("Login Data");
@@ -134,7 +134,7 @@ const updateProfile = async (req, res) => {
   
   try {
     const { id } = req.params;
-    const { name } = req.body;
+    const { name, address } = req.body;
     
     // Find user first
     const user = await User.findById(id);
@@ -148,7 +148,9 @@ const updateProfile = async (req, res) => {
     if (name) {
       user.name = name;
     }
-
+    if (address) {
+      user.address = address;
+    }
     // Update profile pic only if a new file was uploaded
     if (req.file) {
       user.profilePic = req.file.path;

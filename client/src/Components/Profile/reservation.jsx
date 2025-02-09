@@ -14,7 +14,7 @@ const Reservation = ({ userDet }) => {
       );
       const data = await response.json();
       setReservation(data.reservation);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log("Error ", error);
     }

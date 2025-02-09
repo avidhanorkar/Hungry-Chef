@@ -9,10 +9,10 @@ const UpdateProfile = () => {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [name, setName] = useState(user?.name || ""); 
+  const [name, setName] = useState(user?.name || "");
   const [address, setAddress] = useState(user?.address || "");
-  const [profilePic, setProfilePic] = useState(null); 
-  const [previewURL, setPreviewURL] = useState(user?.profilePic || ""); 
+  const [profilePic, setProfilePic] = useState(null);
+  const [previewURL, setPreviewURL] = useState(user?.profilePic || "");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -32,7 +32,7 @@ const UpdateProfile = () => {
       };
       reader.readAsDataURL(file);
     } else {
-      setPreviewURL(user?.profilePic || ""); // Reset preview if file removed
+      setPreviewURL(user?.profilePic || ""); 
     }
   };
 
@@ -41,6 +41,7 @@ const UpdateProfile = () => {
 
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("address", address); 
 
     if (profilePic) {
       formData.append("profilePic", profilePic);
@@ -54,15 +55,21 @@ const UpdateProfile = () => {
           body: formData,
         }
       );
-      console.log(response);
+
       if (response.ok) {
-        const data = await response.json(); // Parse the response body as JSON
+        const data = await response.json();
         console.log("Profile updated successfully", data);
-        setName(data.profile.name);
-        setProfilePic(data.profile.profilePic);
+
+        setUser((prev) => ({
+          ...prev,
+          name: data.profile.name,
+          address: data.profile.address, 
+          profilePic: data.profile.profilePic,
+        }));
+
         navigate(`/profile/${user.user}`);
       } else {
-        const errorText = await response.text(); // Log the entire response text
+        const errorText = await response.text();
         console.error("Error updating profile:", errorText);
       }
     } catch (error) {

@@ -13,7 +13,7 @@ const Order = ({ userDet }) => {
         }
       );
       const data = await response.json();
-      console.log("Order Data ", data.order);
+      // console.log("Order Data ", data.order);
       setOrder(data.order);
     } catch (error) {
       console.log("Error ", error);
