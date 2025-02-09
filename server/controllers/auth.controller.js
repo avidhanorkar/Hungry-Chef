@@ -63,7 +63,11 @@ const login = async (req, res) => {
       name: user.name,
       role: user.role,
       profilePic: user.profilePic,
+      address: ""
     };
+
+    console.log("Login Data");
+    console.log(user);
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "2d",
@@ -87,6 +91,7 @@ const login = async (req, res) => {
           email: user.email,
           role: user.role,
           profilePic: user.profilePic,
+          address: user.address
         },
       });
   } catch (error) {

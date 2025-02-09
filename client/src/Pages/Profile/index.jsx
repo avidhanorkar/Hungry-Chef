@@ -85,6 +85,12 @@ const Profile = () => {
                 {userDet?.email || "Fetching..."}
               </p>
             </div>
+            <div className="flex justify-between w-full">
+              <p className="text-white font-serif text-[18px]">Address</p>
+              <p className="text-white font-semibold text-xl">
+                {userDet?.address || "Fetching..."}
+              </p>
+            </div>
           </div>
         </div>
 

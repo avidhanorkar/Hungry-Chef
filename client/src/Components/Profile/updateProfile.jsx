@@ -9,12 +9,17 @@ const UpdateProfile = () => {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [name, setName] = useState(user?.name || ""); // Handle potential null user
-  const [profilePic, setProfilePic] = useState(null); // Store the file object
-  const [previewURL, setPreviewURL] = useState(user?.profilePic || ""); // For preview
+  const [name, setName] = useState(user?.name || ""); 
+  const [address, setAddress] = useState(user?.address || "");
+  const [profilePic, setProfilePic] = useState(null); 
+  const [previewURL, setPreviewURL] = useState(user?.profilePic || ""); 
 
   const handleNameChange = (e) => {
     setName(e.target.value);
+  };
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
   };
 
   const handleFileChange = (e) => {
@@ -79,6 +84,15 @@ const UpdateProfile = () => {
               className="bg-[#131620] text-white text-right h-10 text-[25px] rounded-md font-semibold"
               value={name}
               onChange={handleNameChange}
+            />
+          </div>
+          <div className="flex justify-between items-end text-[20px] font-semibold">
+            <p className="text-white">Address:</p>
+            <input
+              type="text"
+              className="bg-[#131620] text-white text-right h-10 text-[25px] rounded-md font-semibold"
+              value={address}
+              onChange={handleAddressChange}
             />
           </div>
           <div className="flex justify-between items-end text-[20px] font-semibold">
