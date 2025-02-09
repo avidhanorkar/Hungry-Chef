@@ -9,29 +9,29 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const userData = sessionStorage.getItem('token');
+        const fetchUserData = () => {
+            const userData = sessionStorage.getItem('token');
 
-        if (userData) {
-            try {
-                const decodeUser = jwtDecode(userData);
-                console.log("Decoded token:", decodeUser); 
-
-                if (decodeUser.profile) {
-                    decodeUser.profile = decodeUser.profile; 
+            if (userData) {
+                try {
+                    const decodedUser = jwtDecode(userData);
+                    console.log("Decoded token:", decodedUser);
+                    setUser(decodedUser);
+                } catch (error) {
+                    console.error("Error decoding token:", error);
+                    sessionStorage.removeItem('token');
                 }
-                setUser(decodeUser);
-            } catch (error) {
-                console.error("Error decoding token:", error);
-                sessionStorage.removeItem('token');
             }
-        }
-    }, []);
+        };
+
+        fetchUserData();
+    }, []); 
 
     const logout = () => {
         sessionStorage.removeItem('token');
         setUser(null);
         navigate("/");
-        window.location.reload(); 
+        window.location.reload();
     };
 
     return (
@@ -39,6 +39,6 @@ const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     );
-}
+};
 
 export { AuthProvider, AuthContext };

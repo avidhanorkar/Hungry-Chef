@@ -1,12 +1,10 @@
-// frontend:
 import { AuthContext } from "@/context/auth.context";
 import { useContext, useState } from "react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const UpdateProfile = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, refreshAuthUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [name, setName] = useState(user?.name || "");
@@ -32,7 +30,7 @@ const UpdateProfile = () => {
       };
       reader.readAsDataURL(file);
     } else {
-      setPreviewURL(user?.profilePic || ""); 
+      setPreviewURL(user?.profilePic || "");
     }
   };
 
@@ -41,7 +39,7 @@ const UpdateProfile = () => {
 
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("address", address); 
+    formData.append("address", address);
 
     if (profilePic) {
       formData.append("profilePic", profilePic);
@@ -63,10 +61,10 @@ const UpdateProfile = () => {
         setUser((prev) => ({
           ...prev,
           name: data.profile.name,
-          address: data.profile.address, 
+          address: data.profile.address,
           profilePic: data.profile.profilePic,
         }));
-
+        // refreshAuthUser();
         navigate(`/profile/${user.user}`);
       } else {
         const errorText = await response.text();

@@ -135,7 +135,7 @@ const updateProfile = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, address } = req.body;
-    
+
     // Find user first
     const user = await User.findById(id);
     if (!user) {
@@ -144,25 +144,48 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    // Update name if provided
-    if (name) {
-      user.name = name;
-    }
-    if (address) {
-      user.address = address;
-    }
-    // Update profile pic only if a new file was uploaded
-    if (req.file) {
-      user.profilePic = req.file.path;
-    }
+    // Update fields if provided
+    if (name) user.name = name;
+    if (address) user.address = address;
+    if (req.file) user.profilePic = req.file.path;
 
-    // Save the updates
+    // Save the updated user
     await user.save();
 
-    return res.status(200).json({
-      message: "Profile updated successfully.",
-      profile: user,
+    // Generate new token with updated user details
+    const payload = {
+      user: user._id,
+      name: user.name,
+      role: user.role,
+      profilePic: user.profilePic,
+      address: user.address
+    };
+
+    const newToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "2d",
     });
+
+    const cookieOptions = {
+      maxAge: 2 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+    };
+
+    return res
+      .status(200)
+      .cookie("token", newToken, cookieOptions) // Update cookie
+      .json({
+        message: "Profile updated successfully.",
+        token: newToken, // Send new token
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          profilePic: user.profilePic,
+          address: user.address
+        },
+      });
   } catch (error) {
     console.log('Error in updating profile:', error);
     return res.status(500).json({
@@ -172,6 +195,7 @@ const updateProfile = async (req, res) => {
     });
   }
 };
+
 
 
 
