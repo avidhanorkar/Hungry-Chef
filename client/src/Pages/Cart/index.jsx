@@ -1,6 +1,8 @@
 import { AuthContext } from "@/context/auth.context";
 import { useContext, useEffect, useState } from "react";
 import Card from "@/Components/Menu/Card";
+import { Button } from "@/Components/ui/button";
+import { Link } from "react-router-dom";
 const Cart = () => {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState(null);
@@ -37,7 +39,7 @@ const Cart = () => {
 
   return (
     <div className="min-h-[100vh] bg-[#131620] flex flex-row gap-5 py-10 px-20">
-      <div className="w-3/4 h-full flex flex-col gap-5 flex-wrap  justify-center p-5">
+      <div className="w-3/4 h-full flex flex-col gap-5 flex-wrap min-h-[80vh] overflow-auto justify-center p-5">
         <p className="font-bold font-serif text-center m-5 text-3xl text-white">
           Cart Items
         </p>
@@ -58,7 +60,7 @@ const Cart = () => {
           })}
         </div>
       </div>
-      <div className="h-[100vh] w-1/4 bg-[#171B26] rounded-md px-5">
+      <div className="h-[95vh] w-1/4 bg-[#171B26] rounded-md px-5">
         <p className="font-bold font-serif text-center m-5 text-3xl text-white">
           Billings and Payment
         </p>
@@ -93,8 +95,24 @@ const Cart = () => {
             <p className="text-center text-xl text-white font-serif">Address</p>
             <div>
               <p className="text-white font-[550] text-left">Your Address</p>
-              {/* <p className="text-gray-500 font-[400] text-left">{user.address}</p> */}
+              <p className="text-gray-500 font-[400] text-left">
+                {user.address}
+              </p>
+              <Link to={`/profile/update/${user.user}`}>
+                <Button className="bg-[#DE8F25] mt-5 hover:bg-white hover:text-black">
+                  Update Address
+                </Button>
+              </Link>
             </div>
+          </div>
+          <hr className="text-white w-full px-5" />
+          <div className="flex flex-col">
+            <p className="font-serif text-white text-xl text-center">Confirm Order</p>
+            <p className="text-gray-500 text-left">Order will be delivered in 30 min to 1 hr</p>
+
+            <Button className="bg-[#DE8F25] mt-8 hover:bg-white hover:text-black">
+              Place Order
+            </Button>
           </div>
         </div>
       </div>
