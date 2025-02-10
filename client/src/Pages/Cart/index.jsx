@@ -6,11 +6,28 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState(null);
+  const [userDet, setUserDet] = useState(null);
+  // console.log(user);
 
-  console.log(user);
+  const getUser = async () => {
+    if (!user?.user) return; 
+
+    try {
+      const response = await fetch(`http://localhost:8000/api/auth/getUser/${user.user}`);
+
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log("User data", data.user);
+        setUserDet(data.user);
+      }
+    } catch (error) {
+      console.log("Error fetching user data", error);
+    }
+  }
 
   const getCart = async () => {
-    if (!user?.user) return; // Check if user is available before making the API call
+    if (!user?.user) return; 
     try {
       const response = await fetch(
         `http://localhost:8000/api/cart/getCart/${user.user}`,
@@ -22,7 +39,7 @@ const Cart = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        setCart(data.cart); // Store the cart data in state
+        setCart(data.cart); 
       } else {
         console.error("Failed to fetch cart data");
       }
@@ -33,9 +50,13 @@ const Cart = () => {
 
   useEffect(() => {
     if (user?.user) {
-      getCart(); // Call getCart only if user is available
+      getUser();
+      getCart(); 
+
     }
-  }, [user]); // Run the effect when user changes
+
+
+  }, [user]); 
 
   return (
     <div className="min-h-[100vh] bg-[#131620] flex flex-row gap-5 py-10 px-20">
@@ -96,9 +117,9 @@ const Cart = () => {
             <div>
               <p className="text-white font-[550] text-left">Your Address</p>
               <p className="text-gray-500 font-[400] text-left">
-                {user.address}
+                {userDet?.address}
               </p>
-              <Link to={`/profile/update/${user.user}`}>
+              <Link to={`/profile/update/${user?.user}`}>
                 <Button className="bg-[#DE8F25] mt-5 hover:bg-white hover:text-black">
                   Update Address
                 </Button>
