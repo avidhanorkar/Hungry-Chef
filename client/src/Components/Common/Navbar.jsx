@@ -60,8 +60,8 @@ const Navbar = () => {
             <Link to={"/browseMenu"}>
               <li className="cursor-pointer">Menu</li>
             </Link>
-            <Link to={"/home"}>
-              <li className="cursor-pointer">Contact</li>
+            <Link to={"/reserveTable"}>
+              <li className="cursor-pointer">Reservations</li>
             </Link>
             {user ? (
               <Link to={"/cart"}>

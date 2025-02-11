@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MenuCard from "./MenuCard";
 import { Button } from "../ui/button";
 
 const Menu = () => {
+  const [menu, setMenu] = useState(null);
+  const getMenu = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/menu/getAllItems`, {
+        method: "GET",
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const newData = data.items.slice(0, 3);
+        setMenu(newData);
+      }
+    } catch (error) {
+      console.error("Error fetching menu data", error);
+    }
+  };
+
+  useEffect(() => {
+    getMenu();
+  }, []);
   return (
     <div className="h-[100vh] bg-[#131620] px-[30px] pt-[50px]">
       <p className="text-[#DE8F25] uppercase text-center tracking-widest text-[18px]">
@@ -13,24 +33,17 @@ const Menu = () => {
       </p>
 
       <div className=" mt-12 flex justify-around">
-        <MenuCard
-          img={`https://images.unsplash.com/photo-1504674900247-0877df9cc836`}
-          name={`Pan-Seared Duck Breast`}
-          desc={`With cherry gastrique and wild mushroom risotto`}
-          price={`$42`}
-        />
-        <MenuCard
-          img={`https://images.unsplash.com/photo-1504674900247-0877df9cc836`}
-          name={`Pan-Seared Duck Breast`}
-          desc={`With cherry gastrique and wild mushroom risotto`}
-          price={`$42`}
-        />
-        <MenuCard
-          img={`https://images.unsplash.com/photo-1504674900247-0877df9cc836`}
-          name={`Pan-Seared Duck Breast`}
-          desc={`With cherry gastrique and wild mushroom risotto`}
-          price={`$42`}
-        />
+        {menu?.map((item, index) => {
+          return (
+          <MenuCard
+            key={index}
+            img={item.image}
+            name={item.menuItem}
+            desc={item.desc}
+            price={item.price}
+          />
+        )
+        })}
       </div>
       <div className="w-full flex justify-center items-center mt-12">
         <Button className="px-8 py-3 mx-auto bg-black hover:bg-[#DE8F25]">
