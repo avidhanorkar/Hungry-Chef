@@ -9,7 +9,8 @@ dotenv.config();
 
 app.use(
   cors({
-    origin: "https://hungry-chef.vercel.app/", 
+    origin: "https://hungry-chef.vercel.app", 
+
     methods: "GET,POST,PUT,DELETE, PATCH", 
     credentials: true, 
   })
@@ -22,4 +23,4 @@ app.listen(process.env.PORT || 8000, () => {
   console.log("Server is running on port 8000");
 });
 
-connectDB(); 
+connectDB();
