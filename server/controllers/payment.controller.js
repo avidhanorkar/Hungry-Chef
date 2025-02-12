@@ -51,4 +51,4 @@ const paymentController = {
     verifyPayment,
 }
 
-export default paymentController
+export default paymentController;
