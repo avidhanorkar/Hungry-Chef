@@ -7,7 +7,7 @@ const Order = ({ userDet }) => {
   const getOrder = async (orderId) => {
     try {
       const response = await fetch(
-        `https://hungry-chef.onrender.comapi/order/getOrderById/${orderId}`,
+        `https://hungry-chef.onrender.com/api/order/getOrderById/${orderId}`,
         {
           method: "GET",
         }

@@ -7,7 +7,7 @@ const Reservation = ({ userDet }) => {
   const getReservation = async (reservationId) => {
     try {
       const response = await fetch(
-        `https://hungry-chef.onrender.comapi/reservation/getReservationById/${reservationId}`,
+        `https://hungry-chef.onrender.com/api/reservation/getReservationById/${reservationId}`,
         {
           method: "GET",
         }

@@ -47,7 +47,7 @@ const UpdateProfile = () => {
 
     try {
       const response = await fetch(
-        `https://hungry-chef.onrender.comapi/auth/updateProfile/${user.user}`,
+        `https://hungry-chef.onrender.com/api/auth/updateProfile/${user.user}`,
         {
           method: "PATCH",
           body: formData,

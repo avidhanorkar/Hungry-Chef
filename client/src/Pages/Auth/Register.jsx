@@ -29,7 +29,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("https://hungry-chef.onrender.comapi/auth/register", {
+      const response = await axios.post("https://hungry-chef.onrender.com/api/auth/register", {
         name: user.name,
         email: user.email,
         password: user.password,

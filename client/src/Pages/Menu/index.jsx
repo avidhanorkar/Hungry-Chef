@@ -15,7 +15,7 @@ const Menu = () => {
 
   const getMenu = async (categoryId) => {
     const response = await fetch(
-      `https://hungry-chef.onrender.comapi/menu/getMenuFromCategory/${categoryId}`
+      `https://hungry-chef.onrender.com/api/menu/getMenuFromCategory/${categoryId}`
     );
 
     if (response.ok) {
@@ -25,7 +25,7 @@ const Menu = () => {
   };
 
   const allMenu = async () => {
-    const response = await fetch(`https://hungry-chef.onrender.comapi/menu/getAllItems`);
+    const response = await fetch(`https://hungry-chef.onrender.com/api/menu/getAllItems`);
 
     if (response.ok) {
       const data = await response.json();
@@ -37,7 +37,7 @@ const Menu = () => {
     try {
       if (isAdded[id]) return;
       const response = await fetch(
-        `https://hungry-chef.onrender.comapi/cart/addToCart/${id}`,
+        `https://hungry-chef.onrender.com/api/cart/addToCart/${id}`,
         {
           method: "POST",
           headers: {

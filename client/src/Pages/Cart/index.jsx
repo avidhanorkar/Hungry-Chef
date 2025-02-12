@@ -14,7 +14,7 @@ const Cart = () => {
 
     try {
       const response = await fetch(
-        `https://hungry-chef.onrender.comapi/auth/getUser/${user.user}`
+        `https://hungry-chef.onrender.com/api/auth/getUser/${user.user}`
       );
 
       if (response.ok) {
@@ -32,7 +32,7 @@ const Cart = () => {
     if (!user?.user) return;
     try {
       const response = await fetch(
-        `https://hungry-chef.onrender.comapi/cart/getCart/${user.user}`,
+        `https://hungry-chef.onrender.com/api/cart/getCart/${user.user}`,
         {
           method: "GET",
         }
@@ -61,7 +61,7 @@ const Cart = () => {
     if (!user?.user) return;
 
     const response = await fetch(
-      `https://hungry-chef.onrender.comapi/payment/createOrder`,
+      `https://hungry-chef.onrender.com/api/payment/createOrder`,
       {
         method: "POST",
         headers: {
@@ -85,7 +85,7 @@ const Cart = () => {
           console.log("Payment Success: ", response);  // Debugging
           try {
             const verifyRes = await fetch(
-              `https://hungry-chef.onrender.comapi/payment/verifyPayment`,
+              `https://hungry-chef.onrender.com/api/payment/verifyPayment`,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
