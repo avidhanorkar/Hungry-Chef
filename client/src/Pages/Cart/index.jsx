@@ -10,10 +10,12 @@ const Cart = () => {
   // console.log(user);
 
   const getUser = async () => {
-    if (!user?.user) return; 
+    if (!user?.user) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/auth/getUser/${user.user}`);
+      const response = await fetch(
+        `http://localhost:8000/api/auth/getUser/${user.user}`
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -24,10 +26,10 @@ const Cart = () => {
     } catch (error) {
       console.log("Error fetching user data", error);
     }
-  }
+  };
 
   const getCart = async () => {
-    if (!user?.user) return; 
+    if (!user?.user) return;
     try {
       const response = await fetch(
         `http://localhost:8000/api/cart/getCart/${user.user}`,
@@ -39,7 +41,7 @@ const Cart = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        setCart(data.cart); 
+        setCart(data.cart);
       } else {
         console.error("Failed to fetch cart data");
       }
@@ -51,12 +53,58 @@ const Cart = () => {
   useEffect(() => {
     if (user?.user) {
       getUser();
-      getCart(); 
-
+      getCart();
     }
+  }, [user]);
 
+  const handlePayment = async () => {
+    if (!user?.user) return;
 
-  }, [user]); 
+    const response = await fetch(
+      `http://localhost:8000/api/payment/createOrder`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: 1,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log("Create Order: ", data);
+    if (response.ok) {
+      const options = {
+        key: import.meta.env.VITE_RZRPY_API_KEY,
+        amount: data.amount,
+        currency: "INR",
+        order_id: data.id,  // ✅ Corrected key
+        handler: async (response) => {
+          console.log("Payment Success: ", response);  // Debugging
+          try {
+            const verifyRes = await fetch(
+              `http://localhost:8000/api/payment/verifyPayment`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(response),
+              }
+            );
+            const verifyData = await verifyRes.json();
+            console.log("Verification Response: ", verifyData);
+            alert(verifyData.message);
+          } catch (error) {
+            console.error("Error verifying payment: ", error);
+          }
+        },
+      };
+      
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    }
+  };
 
   return (
     <div className="min-h-[100vh] bg-[#131620] flex flex-row gap-5 py-10 px-20">
@@ -128,10 +176,17 @@ const Cart = () => {
           </div>
           <hr className="text-white w-full px-5" />
           <div className="flex flex-col">
-            <p className="font-serif text-white text-xl text-center">Confirm Order</p>
-            <p className="text-gray-500 text-left">Order will be delivered in 30 min to 1 hr</p>
+            <p className="font-serif text-white text-xl text-center">
+              Confirm Order
+            </p>
+            <p className="text-gray-500 text-left">
+              Order will be delivered in 30 min to 1 hr
+            </p>
 
-            <Button className="bg-[#DE8F25] mt-8 hover:bg-white hover:text-black">
+            <Button
+              onClick={handlePayment}
+              className="bg-[#DE8F25] mt-8 hover:bg-white hover:text-black"
+            >
               Place Order
             </Button>
           </div>
