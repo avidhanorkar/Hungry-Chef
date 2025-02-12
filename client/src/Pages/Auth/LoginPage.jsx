@@ -21,7 +21,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
+        "https://hungry-chef.onrender.comapi/auth/login",
         {
           email: user.email,
           password: user.password,

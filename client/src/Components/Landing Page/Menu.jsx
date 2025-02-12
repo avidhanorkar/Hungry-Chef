@@ -6,7 +6,7 @@ const Menu = () => {
   const [menu, setMenu] = useState(null);
   const getMenu = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/menu/getAllItems`, {
+      const response = await fetch(`https://hungry-chef.onrender.comapi/menu/getAllItems`, {
         method: "GET",
       });
 

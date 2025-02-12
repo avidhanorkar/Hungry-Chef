@@ -15,7 +15,7 @@ const Navbar = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/auth/getUser/${id}`,
+        `https://hungry-chef.onrender.comapi/auth/getUser/${id}`,
         {
           method: "GET",
         }

@@ -38,7 +38,7 @@ const TableReservation = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch(`http://localhost:8000/api/reservation/makeReservation`, {
+        const response = await fetch(`https://hungry-chef.onrender.comapi/reservation/makeReservation`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

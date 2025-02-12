@@ -6,7 +6,7 @@ const Category = ({ onCategorySelect, categoryName }) => {
   const getCategories = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/categories/getAll`
+        `https://hungry-chef.onrender.comapi/categories/getAll`
       );
       if (response.ok) {
         const data = await response.json();
