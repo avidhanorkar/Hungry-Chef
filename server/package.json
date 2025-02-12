@@ -12,7 +12,7 @@
     "razorpay": "^2.9.5"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "name": "server",
   "version": "1.0.0",
