@@ -1,7 +1,7 @@
 import { Utensils } from "lucide-react";
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
