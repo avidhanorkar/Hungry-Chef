@@ -4,7 +4,7 @@ import {
   TabsList,
   TabsTrigger,
   TabsContent,
-} from "../../components/ui/tabs.jsx";
+} from "../../Components/ui/tabs.jsx";
 import LoginPage from "./LoginPage.jsx";
 import Register from "./Register.jsx";
 
