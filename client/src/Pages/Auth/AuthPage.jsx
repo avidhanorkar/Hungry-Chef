@@ -4,9 +4,9 @@ import {
   TabsList,
   TabsTrigger,
   TabsContent,
-} from "../../components/ui/tabs";
-import LoginPage from "./LoginPage";
-import Register from "./Register";
+} from "../../components/ui/tabs.jsx";
+import LoginPage from "./LoginPage.jsx";
+import Register from "./Register.jsx";
 
 const AuthPage = () => {
   const [activeTab, setActiveTab] = useState("login"); // Use string values
