@@ -60,12 +60,12 @@ const UpdateProfile = () => {
 
         setUser((prev) => ({
           ...prev,
-          name: data.profile.name,
-          address: data.profile.address,
-          profilePic: data.profile.profilePic,
+          name: data?.profile?.name,
+          address: data?.profile?.address,
+          profilePic: data?.profile?.profilePic,
         }));
-        // refreshAuthUser();
-        navigate(`/profile/${user.user}`);
+?        // refreshAuthUser?();
+        navigate(`/profile/${user?.user}`);
       } else {
         const errorText = await response.text();
         console.error("Error updating profile:", errorText);
